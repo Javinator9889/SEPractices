@@ -135,7 +135,7 @@ void init_uart(void)
     __delay32(4122);
 }
 
-int forks[5] = {-1};
+int forks[5] = { [0 ... 4] = -1 };
 typedef enum ph_state{Thinking, Eating, Sleeping} ph_state;
 
 int mod(int a, int b)
@@ -221,7 +221,7 @@ void philosopher_hierachy()
                 bool eating = false;
                 enter_HCR();
                 
-                if(forks[fork1] == ID || forks[fork1] == -1)
+                if((forks[fork1] == ID) || (forks[fork1] == -1))
                 {
                     forks[fork1] = ID;
                     if (forks[fork2] == -1)
@@ -230,7 +230,7 @@ void philosopher_hierachy()
                         eating = true;
                     }
                 }
-                printf("Fork1: %d, Fork2: %d\n", fork1, fork2);
+//                printf("[%d]: %d | [%d]: %d\n", fork1, forks[fork1], fork2, forks[fork2]);
                 exit_HCR();
                 if (eating)
                 {
@@ -238,7 +238,7 @@ void philosopher_hierachy()
                     printf("Ph %d is eating\n", ID);
                     exit_HCR();
                     //__delay_ms(1000ULL);
-                     __delay32(39628800UL); 
+                     __delay32(396288UL); 
                     enter_HCR();
                     forks[fork1] = -1;
                     forks[fork2] = -1;
@@ -256,7 +256,7 @@ void philosopher_hierachy()
                 exit_HCR();
                 state = (state==Thinking)?Eating:Thinking;
                 //__delay_ms((state==Thinking)?2000ULL:5000ULL);
-                 __delay32(39628800UL); 
+                 __delay32(396288UL); 
                 break;
             }
                 
