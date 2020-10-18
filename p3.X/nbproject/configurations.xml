@@ -38,6 +38,8 @@
       <packs>
         <pack name="dsPIC33F-GP-MC_DFP" vendor="Microchip" version="1.1.15"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
