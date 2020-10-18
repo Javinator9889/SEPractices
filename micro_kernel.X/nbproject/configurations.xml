@@ -5,6 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>AuK_v1_0.h</itemPath>
+      <itemPath>init.h</itemPath>
+      <itemPath>pragmas.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -13,9 +15,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>AuK-test-1.c</itemPath>
       <itemPath>AuK_v1_0.c</itemPath>
       <itemPath>asm_routines-v1.s</itemPath>
+      <itemPath>init.c</itemPath>
+      <itemPath>main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -183,7 +186,7 @@
         <property key="generic-16-bit" value="false"/>
         <property key="legacy-libc" value="true"/>
         <property key="mpreserve-all" value="false"/>
-        <property key="oXC16glb-macros" value=""/>
+        <property key="oXC16glb-macros" value="CONFIG_OVERCLOCK;HIERARCHY_ALG"/>
         <property key="omit-pack-options" value="1"/>
         <property key="output-file-format" value="elf"/>
         <property key="preserve-all" value="false"/>
