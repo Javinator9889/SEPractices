@@ -32,48 +32,51 @@ use WORK.BinaryUtils.ALL;
 entity ALU is
     port (
         -- Input operands
-        ALU_a, ALU_b    : in STD_LOGIC_VECTOR (MSB downto LSB);
+        ALU_a, ALU_b    : in std_logic_vector (MSB downto LSB);
         -- ALU operation selection
-        ALU_sel         : in STD_LOGIC_VECTOR (3 downto 0);
+        ALU_sel         : in std_logic_vector (3 downto 0);
         -- ALU go flag
-        ALU_go          : in STD_LOGIC;
+        ALU_go          : inout std_logic;
         -- ALU output operation result
-        ALU_out         : out STD_LOGIC_VECTOR (MSB downto LSB);
+        ALU_out         : out std_logic_vector (MSB downto LSB);
         -- ALU carry output
-        ALU_carry       : out STD_LOGIC
+        ALU_carry       : out std_logic
     );
 end ALU;
 
 architecture Behavioral of ALU is
 
 -- Global CLK signal that manages registries
-signal clk   : STD_LOGIC := '0';
+signal clk   : std_logic := '0';
 
 -- Global CLR signal that clears ALU registries
-signal clr   : STD_LOGIC := '0';
+signal clr   : std_logic := '0';
 
 -- Registry for operand 1 components
-signal d1     : STD_LOGIC_VECTOR (MSB downto LSB);
-signal q1     : STD_LOGIC_VECTOR (MSB downto LSB);
-signal write1 : STD_LOGIC := '0';
+signal d1     : std_logic_vector (MSB downto LSB);
+signal q1     : std_logic_vector (MSB downto LSB);
+signal write1 : std_logic := '0';
 
 -- Registry for operand 2 components
-signal d2     : STD_LOGIC_VECTOR (MSB downto LSB);
-signal q2     : STD_LOGIC_VECTOR (MSB downto LSB);
-signal write2 : STD_LOGIC := '0';
+signal d2     : std_logic_vector (MSB downto LSB);
+signal q2     : std_logic_vector (MSB downto LSB);
+signal write2 : std_logic := '0';
 
 -- Registry for ALU output
-signal d3     : STD_LOGIC_VECTOR (MSB downto LSB);
-signal q3     : STD_LOGIC_VECTOR (MSB downto LSB);
-signal write3 : STD_LOGIC := '0';
+signal d3     : std_logic_vector (MSB downto LSB);
+signal q3     : std_logic_vector (MSB downto LSB);
+signal write3 : std_logic := '0';
+
+-- Overflow detector signal
+signal ovflw  : std_logic_vector ((MSB + 1) downto LSB);
 
 -- Component registry declaration
 component registry is
     port(
-        write : inout STD_LOGIC;
-        clk, clr : in STD_LOGIC;
-        d : in STD_LOGIC_VECTOR (MSB downto LSB);
-        q : in STD_LOGIC_VECTOR (MSB downto LSB)
+        write : inout std_logic;
+        clk, clr : in std_logic;
+        d : in std_logic_vector (MSB downto LSB);
+        q : in std_logic_vector (MSB downto LSB)
     );
 end component;
 
@@ -126,14 +129,11 @@ begin
                 d3 <= div(q1, q2, (MSB - LSB));
                 write3 <= '1';
          end case;
+         ALU_go <= '0';
     end if;
 end process;
--- process (A, B, ALU_sel)
--- begin
---    case(ALU_sel) is
-        -- Addition
---        when "0000" =>
-            
--- end process;
+ALU_out <= q3;
+ovflw <= ('0' & q1) + ('0' & q2);
+ALU_carry <= ovflw((MSB + 1));
 
 end Behavioral;
