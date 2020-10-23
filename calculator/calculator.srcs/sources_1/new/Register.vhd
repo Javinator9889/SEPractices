@@ -20,14 +20,17 @@
 
 
 library IEEE;
+library WORK;
 use IEEE.STD_LOGIC_1164.ALL;
+use WORK.Constants.ALL;
 
 
 entity Registry is
-    Port ( write : inout STD_LOGIC;
-           clr, clk : in STD_LOGIC;
-           d : in STD_LOGIC_VECTOR (7 downto 0);
-           q : out STD_LOGIC_VECTOR (7 downto 0));
+    Port ( write : inout std_logic;
+           clr, clk : in std_logic;
+           d : in std_logic_vector (MSB downto LSB);
+           q : out std_logic_vector (MSB downto LSB)
+    );
 end Registry;
 
 architecture Behavioral of Registry is
@@ -37,7 +40,7 @@ begin
     process (clk, clr)
     begin
         if clr = '1' then
-            q <= "00000000";
+            q <= (others => '0');
         elsif clk'event and clk = '1' and write = '1' then
             write <= '0';
             q <= d;
