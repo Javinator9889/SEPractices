@@ -70,7 +70,6 @@ inline void TMR3_init(void) {
 }
 
 inline void setup(void) {
-#ifdef CONFIG_OVERCLOCK
     // FRCDIV FRC/1; PLLPRE 2; DOZE 1:8; PLLPOST 1:2; DOZEN disabled; ROI disabled; 
     CLKDIV = 0x3000;
     // TUN Center frequency; 
@@ -103,7 +102,6 @@ inline void setup(void) {
     // and then wait the PLL to lock
     while (OSCCONbits.COSC != 0b011);
     while (OSCCONbits.LOCK != 1);
-#endif
     // Disable Watchdog timer
     RCONbits.SWDTEN = 0;
 

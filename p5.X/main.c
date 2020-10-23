@@ -196,14 +196,14 @@ inline void init_ADC(void) {
     AD1CON2bits.CHPS = 0b00; /* Channel 0 selected for sample and conversion */
     AD1CON2bits.CSCNA = 0; /* Do not scan inputs */
     AD1CON1bits.ASAM = 0; /* Sample begins when SAMP bit is set */
-    AD1CON1bits.SAMP = 0;
+    AD1CON1bits.SAMP = 0; /* ADC sample/hold amplifiers are sampling */
     AD1CON1bits.SSRC = 0b000; /* Clearing sample bit ends sampling and start conversion */
     AD1CON1bits.FORM = 0b00; /* Output format = integer */
     AD1CON2bits.BUFM = 0; /* Always starts filling buffer at address 0 */
     AD1CON2bits.ALTS = 0; /* Always uses channel input selects for Sample A */
     AD1CON2bits.SMPI = 0x0; /* One conversion per interrupt */
-    IPC3bits.AD1IP = 7;
-    IEC0bits.AD1IE = 1;
-    IFS0bits.AD1IF = 0;
+    IPC3bits.AD1IP = 7; /* ADC1 conversion complete priority set to 7 (Maximum priority) */
+    IEC0bits.AD1IE = 1; /* ADC1 conversion complete interrupt enabled */
+    IFS0bits.AD1IF = 0; /* ADC1 interrupt request flag set to 0 for initialisation purposes */
     AD1CON1bits.ADON = 1; /* Start ADC module */
 }
