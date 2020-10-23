@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: NPCMOS
--- Engineer: Javinator9889 & M. Octavian
+-- Engineers: Javinator9889 & M. Octavian
 -- 
 -- Create Date: 23.10.2020 17:03:31
 -- Design Name: 
@@ -122,7 +122,9 @@ begin
             when "0010" =>
                 d3 <= mul(q1, q2, (MSB - LSB));
                 write3 <= '1';
-                -- d3 <= std_logic_vector(to_unsigned((to_integer(unsigned(d1)))
+            when "0011" =>
+                d3 <= div(q1, q2, (MSB - LSB));
+                write3 <= '1';
          end case;
     end if;
 end process;

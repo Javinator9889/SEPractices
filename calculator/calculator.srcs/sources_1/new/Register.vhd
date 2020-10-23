@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: NPCMOS
+-- Engineers: Javinator9889 & M. Octavian
 -- 
 -- Create Date: 23.10.2020 17:15:11
 -- Design Name: 
@@ -12,7 +12,7 @@
 -- 
 -- Dependencies: 
 -- 
--- Revision:
+-- Revision: 0.01
 -- Revision 0.01 - File Created
 -- Additional Comments:
 -- 
