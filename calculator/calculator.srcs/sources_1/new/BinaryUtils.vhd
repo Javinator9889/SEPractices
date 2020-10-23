@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: NPCMOS
+-- Engineers: Javinator9889 & M. Octavian
 -- 
 -- Create Date: 23.10.2020 18:50:32
 -- Design Name: 
