@@ -168,13 +168,16 @@ inline void setup(void) {
 
 inline void loop(void) {
     if (TIME_now() >= next) {
+        // To comply with the exercise requirements we read values every 333mS
         next = TIME_now() + 333ULL;
         for (uint8_t channel = 0; channel < 3; ++channel) {
+            // Iterate from channel 0 to channel 2 to get all data
             AD1CHS0bits.CH0SA = channel;
+            // we wait for the channel to change
             __delay32(40);
             // Start sampling
             AD1CON1bits.SAMP = 1;
-            // Wait the minimum dealy admited by __delay32
+            // Wait the minimum delay admitted by __delay32
             __delay32(12);
             // Hold the value and start conversion
             AD1CON1bits.SAMP = 0;
