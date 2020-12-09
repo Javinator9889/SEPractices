@@ -111,3 +111,5 @@ dist/
 **/nbproject/Makefile-*
 **/nbproject/Package-*
 **/nbproject/private/
+calculator/calculator.xpr
+
