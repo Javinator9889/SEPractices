@@ -27,6 +27,7 @@ use WORK.ALU;
 use WORK.Registry;
 use WORK.SwitchIf;
 use WORK.ButtonIf;
+use WORK.SevenSegmentDisplay;
 use WORK.Constants.ALL;
 use WORK.BinaryUtils.ALL;
 
@@ -90,6 +91,15 @@ component buttonif is
     );
 end component;
 
+-- Component 7-segment display
+component SevenSegmentDisplay is
+    Port ( clock_100Mhz : in STD_LOGIC;
+           reset : in STD_LOGIC;
+           number_to_be_displayed: in STD_LOGIC_VECTOR(MSB DOWNTO LSB);
+           anode_activate : out STD_LOGIC_VECTOR (3 downto 0);
+           led_out : out STD_LOGIC_VECTOR (6 downto 0));
+end component;
+
 -- ALU signals
 signal ALU_a        : std_logic_vector (MSB downto LSB);
 signal ALU_b        : std_logic_vector (MSB downto LSB);
@@ -121,6 +131,13 @@ signal f2_write     : std_logic;
 signal f2_clr       : std_logic;
 signal f2_d         : std_logic_vector(MSB downto LSB);
 signal f2_q         : std_logic_vector(MSB downto LSB);
+
+-- 7-segment display signals
+signal clock_100Mhz : STD_LOGIC;
+signal reset        : STD_LOGIC;
+signal displayed_num: STD_LOGIC_VECTOR(MSB DOWNTO LSB);
+signal aa           : STD_LOGIC_VECTOR (3 downto 0);
+signal lout         : STD_LOGIC_VECTOR (6 downto 0);
 
 -- Operand selection signal
 signal operand_sel  : std_logic_vector(2 downto 0);
@@ -158,6 +175,12 @@ begin
                                         execute => execute);
                                         
     operand_selection: switchif port map(sw => sw);
+    
+    display: SevenSegmentDisplay port map(clock_100Mhz => clock_100Mhz,
+                                          reset => reset,
+                                          number_to_be_displayed => displayed_num,
+                                          anode_activate => aa,
+                                          led_out => lout);
     
     process (clk)
     begin
