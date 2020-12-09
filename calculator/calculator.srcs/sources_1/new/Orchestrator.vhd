@@ -211,6 +211,13 @@ begin
             operand_sel <= "01";
         end if;
     end process;
+    
+    process (sw)
+    begin
+        if operand_sel(1) = '0' then
+            -- 7-seg display show :v
+        end if;
+    end process;
 
 
 end Behavioral;
