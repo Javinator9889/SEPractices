@@ -22,6 +22,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.std_logic_unsigned.all;
+use work.constants.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -35,6 +36,7 @@ use IEEE.std_logic_unsigned.all;
 entity SevenSegmentDisplay is
     Port ( clock_100Mhz : in STD_LOGIC;
            reset : in STD_LOGIC;
+           number_to_be_displayed: in STD_LOGIC_VECTOR(MSB DOWNTO LSB);
            anode_activate : out STD_LOGIC_VECTOR (3 downto 0);
            led_out : out STD_LOGIC_VECTOR (6 downto 0));
 end SevenSegmentDisplay;
@@ -64,7 +66,6 @@ begin
     when "1000" => LED_out <= "0000000"; -- "8"     
     when "1001" => LED_out <= "0000100"; -- "9" 
     when "1010" => LED_out <= "0000010"; -- a
-
     when "1011" => LED_out <= "1100000"; -- b
     when "1100" => LED_out <= "0110001"; -- C
     when "1101" => LED_out <= "1000010"; -- d
@@ -101,27 +102,32 @@ begin
     end case;
 end process;
 
-process(clock_100Mhz, reset)
+process(clock_100Mhz)
 begin
-    if(reset = '1') then
-        one_second_counter <= (others => '0');
-    elsif(rising_edge(clock_100Mhz)) then
-        if (one_second_counter >= x"5F5E0FF") then
-            one_second_counter <= (others => '0');
-        else
-            one_second_counter <= one_second_counter + "0000001";
-        end if;
-    end if;
+    displayed_number <= number_to_be_displayed;
 end process;
-one_second_enable <= '1'  when one_second_counter = x"5F5E0FF" else '0';
-process(clock_100Mhz, reset)
-begin
-    if(reset='1') then
-        displayed_number <= (others => '0');
-    elsif(rising_edge(clock_100Mhz)) then 
-        if(one_Second_enable = '1') then
-            displayed_number <= displayed_number + x"0001";
-        end if;
-    end if;
-end process;
+
+--process(clock_100Mhz, reset)
+--begin
+--    if(reset = '1') then
+--        one_second_counter <= (others => '0');
+--    elsif(rising_edge(clock_100Mhz)) then
+--        if (one_second_counter >= x"5F5E0FF") then
+--            one_second_counter <= (others => '0');
+--        else
+--            one_second_counter <= one_second_counter + "0000001";
+--        end if;
+--    end if;
+--end process;
+--one_second_enable <= '1'  when one_second_counter = x"5F5E0FF" else '0';
+--process(clock_100Mhz, reset)
+--begin
+--    if(reset='1') then
+--        displayed_number <= (others => '0');
+--    elsif(rising_edge(clock_100Mhz)) then 
+--        if(one_Second_enable = '1') then
+--            displayed_number <= displayed_number + x"0001";
+--        end if;
+--    end if;
+--end process;
 end Behavioral;
