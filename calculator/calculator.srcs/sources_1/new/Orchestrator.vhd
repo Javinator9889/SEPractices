@@ -61,6 +61,16 @@ component alu is
     );
 end component;
 
+component seven_segment_display is
+    port(
+         clock_100Mhz : in STD_LOGIC;
+         reset : in STD_LOGIC;
+         number_to_be_displayed: in STD_LOGIC_VECTOR(MSB DOWNTO LSB);
+         anode_activate : out STD_LOGIC_VECTOR (3 downto 0);
+         led_out : out STD_LOGIC_VECTOR (6 downto 0)
+         );
+end component;
+
 -- Component registry declaration
 component registry is
     port(
