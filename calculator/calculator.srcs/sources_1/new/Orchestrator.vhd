@@ -118,7 +118,7 @@ signal btn_mul      : std_logic;
 signal btn_div      : std_logic;
 signal btn_eq       : std_logic;
 signal result       : std_logic_vector(3 downto 0);
-signal execute      : std_logic;
+signal ready_to_go      : std_logic;
 
 -- First operand signals
 signal f1_write     : std_logic;
@@ -140,7 +140,7 @@ signal aa           : STD_LOGIC_VECTOR (3 downto 0);
 signal lout         : STD_LOGIC_VECTOR (6 downto 0);
 
 -- Operand selection signal
-signal operand_sel  : std_logic_vector(2 downto 0);
+signal state        : std_logic_vector(2 downto 0);
 
 -- AC button counter
 signal ac_counter   : natural;
@@ -172,7 +172,7 @@ begin
                                         btn_div => btn_div,
                                         btn_eq => btn_eq,
                                         result => result,
-                                        execute => execute);
+                                        execute => ready_to_go);
                                         
     operand_selection: switchif port map(sw => sw);
     
@@ -185,59 +185,50 @@ begin
     process (clk)
     begin
         if rising_edge(clk) then
-            case (operand_sel) is
+            case (state) is
                 -- First operand data
                 when "00" => 
                     f1_d <= bcd16_to_binary(sw);
                     f1_write <= '1';
-                    if execute = '1' then
-                        ALU_a <= f1_q;
-                        execute <= '0';
-                        operand_sel <= "01";
-                    end if;
                 -- Second operand data
                 when "01" =>
                     f2_d <= bcd16_to_binary(sw);
                     f2_write <= '1';
-                    if execute = '1' then
-                        ALU_b <= f2_q;
-                        execute <= '0';
-                        operand_sel <= "10";
-                    end if;
             end case;
         end if;
     end process;
     
-    process (clk, execute)
+    process (clk, ready_to_go)
     begin
-        if rising_edge(clk) and execute = '1' then
-            case (operand_sel) is
+        if rising_edge(clk) and ready_to_go = '1' then
+            case (state) is
                 when "01" =>
                     ALU_b <= f2_q;
                     ALU_go <= '1';
-                    operand_sel <= "10";
+                    state <= "10";
                 when "10" =>
                     ac_counter <= ac_counter + 1;
                     if ac_counter = 2 then
-                        operand_sel <= "00";
+                        state <= "00";
                         ac_counter <= 0;
                     end if;
             end case;
+            ready_to_go <= '0';
         end if;
     end process;
     
     process (result)
     begin
-        if operand_sel = "00" then
+        if state = "00" then
             ALU_a <= f1_q;
             ALU_sel <= result;
-            operand_sel <= "01";
+            state <= "01";
         end if;
     end process;
     
     process (sw)
     begin
-        if operand_sel(1) = '0' then
+        if state(1) = '0' then
             -- 7-seg display show :v
         end if;
     end process;

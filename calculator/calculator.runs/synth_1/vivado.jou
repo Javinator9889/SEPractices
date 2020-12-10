@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.2.1 (64-bit)
+# SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+# IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+# Start of session at: Thu Dec 10 18:53:47 2020
+# Process ID: 432067
+# Current directory: /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.runs/synth_1
+# Command line: vivado -log Orchestrator.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Orchestrator.tcl
+# Log file: /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.runs/synth_1/Orchestrator.vds
+# Journal file: /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source Orchestrator.tcl -notrace
