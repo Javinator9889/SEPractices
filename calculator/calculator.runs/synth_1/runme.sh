@@ -7,9 +7,9 @@
 # 
 
 if [ -z "$PATH" ]; then
-  PATH=/media/javinator9889/Data/Vivado/Vivado/2019.2/ids_lite/ISE/bin/lin64:/media/javinator9889/Data/Vivado/Vivado/2019.2/bin
+  PATH=/home/mihai/Xilinx/Vivado/2019.2/ids_lite/ISE/bin/lin64:/home/mihai/Xilinx/Vivado/2019.2/bin
 else
-  PATH=/media/javinator9889/Data/Vivado/Vivado/2019.2/ids_lite/ISE/bin/lin64:/media/javinator9889/Data/Vivado/Vivado/2019.2/bin:$PATH
+  PATH=/home/mihai/Xilinx/Vivado/2019.2/ids_lite/ISE/bin/lin64:/home/mihai/Xilinx/Vivado/2019.2/bin:$PATH
 fi
 export PATH
 
@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.runs/synth_1'
+HD_PWD='/home/mihai/Desktop/Master/SEPractices/calculator/calculator.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

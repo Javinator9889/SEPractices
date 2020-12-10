@@ -22,25 +22,25 @@ create_project -in_memory -part xc7a35tcpg236-1
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.cache/wt [current_project]
-set_property parent.project_path /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.xpr [current_project]
+set_property webtalk.parent_dir /home/mihai/Desktop/Master/SEPractices/calculator/calculator.cache/wt [current_project]
+set_property parent.project_path /home/mihai/Desktop/Master/SEPractices/calculator/calculator.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
-set_property board_part_repo_paths {/home/javinator9889/.Xilinx/Vivado/2019.2/xhub/board_store} [current_project]
+set_property board_part_repo_paths {/home/mihai/.Xilinx/Vivado/2019.2/xhub/board_store} [current_project]
 set_property board_part digilentinc.com:basys3:part0:1.1 [current_project]
-set_property ip_output_repo /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.cache/ip [current_project]
+set_property ip_output_repo /home/mihai/Desktop/Master/SEPractices/calculator/calculator.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_vhdl -library xil_defaultlib {
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/ConstantsIf.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/Register.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/BinaryUtilsIf.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/ALU.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/BinaryUtils.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/ButtonIf.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/Constants.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/SwitchIf.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/SevenSegmentDisplay.vhd
-  /media/javinator9889/Data/Nextcloud/UNIVERSIDAD/MSSDE/SE/Practices/calculator/calculator.srcs/sources_1/new/Orchestrator.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/ConstantsIf.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/Register.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/BinaryUtilsIf.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/ALU.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/BinaryUtils.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/ButtonIf.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/Constants.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/SwitchIf.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/SevenSegmentDisplay.vhd
+  /home/mihai/Desktop/Master/SEPractices/calculator/calculator.srcs/sources_1/new/Orchestrator.vhd
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the

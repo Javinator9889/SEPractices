@@ -236,10 +236,12 @@ begin
         end if;
     end process;
     
-    process (sw)
+    process (sw, alu_out)
     begin
         if state(1) = '0' then
-            -- 7-seg display show :v
+            displayed_num <= sw;
+        else 
+            displayed_num <= alu_out;
         end if;
     end process;
 
