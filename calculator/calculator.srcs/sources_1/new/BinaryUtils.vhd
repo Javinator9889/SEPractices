@@ -59,9 +59,10 @@ package body BinaryUtils is
     -- Convert 16 bit BCD to common binary
     function bcd16_to_binary(bcd: std_logic_vector) return std_logic_vector is
     begin
-        return (bcd(3 downto 0) * "01") +
-                (bcd(7 downto 4) * "1010") +
-                (bcd(11 downto 8) * "1100100") +
-                (bcd(15 downto 12) * "1111101000");
+        return int_to_binary(
+                binary_to_int(bcd(3 downto 0)) +
+                (binary_to_int(bcd(7 downto 4)) * 10) +
+                (binary_to_int(bcd(11 downto 8)) * 100) +
+                (binary_to_int(bcd(15 downto 12)) * 1000), 16);
     end bcd16_to_binary;
 end BinaryUtils;

@@ -76,7 +76,7 @@ component registry is
         write : inout std_logic;
         clk, clr : in std_logic;
         d : in std_logic_vector (MSB downto LSB);
-        q : in std_logic_vector (MSB downto LSB)
+        q : out std_logic_vector (MSB downto LSB)
     );
 end component;
 
@@ -109,7 +109,7 @@ output : Registry port map(
     q => q3
 );
 
-process (clk, ALU_go, ALU_sel)
+process (clk, ALU_go)
 begin
     if rising_edge(clk) and ALU_go = '1' then
         case(ALU_sel) is
@@ -123,15 +123,20 @@ begin
                 write3 <= '1';
             -- Multiplication
             when "0010" =>
-                d3 <= mul(q1, q2, (MSB - LSB));
+                d3 <= mul(q1, q2, (MSB - LSB) + 1);
                 write3 <= '1';
+            -- Division
             when "0011" =>
-                d3 <= div(q1, q2, (MSB - LSB));
+                d3 <= div(q1, q2, (MSB - LSB) + 1);
                 write3 <= '1';
+            -- Ignore
+            when others =>
+                null;
          end case;
          ALU_go <= '0';
     end if;
 end process;
+
 ALU_out <= q3;
 ovflw <= ('0' & q1) + ('0' & q2);
 ALU_carry <= ovflw((MSB + 1));

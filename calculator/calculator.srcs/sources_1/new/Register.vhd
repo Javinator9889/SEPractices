@@ -41,7 +41,7 @@ begin
     begin
         if clr = '1' then
             q <= (others => '0');
-        elsif clk'event and clk = '1' and write = '1' then
+        elsif rising_edge(clk) and write = '1' then
             write <= '0';
             q <= d;
         end if;

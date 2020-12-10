@@ -61,23 +61,13 @@ component alu is
     );
 end component;
 
-component seven_segment_display is
-    port(
-         clock_100Mhz : in STD_LOGIC;
-         reset : in STD_LOGIC;
-         number_to_be_displayed: in STD_LOGIC_VECTOR(MSB DOWNTO LSB);
-         anode_activate : out STD_LOGIC_VECTOR (3 downto 0);
-         led_out : out STD_LOGIC_VECTOR (6 downto 0)
-         );
-end component;
-
 -- Component registry declaration
 component registry is
     port(
         write : inout std_logic;
         clk, clr : in std_logic;
         d : in std_logic_vector (MSB downto LSB);
-        q : in std_logic_vector (MSB downto LSB)
+        q : out std_logic_vector (MSB downto LSB)
     );
 end component;
 
@@ -150,7 +140,7 @@ signal aa           : STD_LOGIC_VECTOR (3 downto 0);
 signal lout         : STD_LOGIC_VECTOR (6 downto 0);
 
 -- Operand selection signal
-signal state        : std_logic_vector(2 downto 0);
+signal state        : std_logic_vector(1 downto 0);
 
 -- AC button counter
 signal ac_counter   : natural;
@@ -204,6 +194,8 @@ begin
                 when "01" =>
                     f2_d <= bcd16_to_binary(sw);
                     f2_write <= '1';
+                when others =>
+                    null;
             end case;
         end if;
     end process;
@@ -222,6 +214,8 @@ begin
                         state <= "00";
                         ac_counter <= 0;
                     end if;
+                when others =>
+                    null;
             end case;
             ready_to_go <= '0';
         end if;

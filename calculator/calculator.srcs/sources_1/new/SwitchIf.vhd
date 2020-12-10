@@ -38,7 +38,7 @@ component registry is
         write : inout std_logic;
         clk, clr : in std_logic;
         d : in std_logic_vector (MSB downto LSB);
-        q : in std_logic_vector (MSB downto LSB)
+        q : out std_logic_vector (MSB downto LSB)
     );
 end component;
 
