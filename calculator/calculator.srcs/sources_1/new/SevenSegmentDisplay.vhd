@@ -54,7 +54,7 @@ begin
 
 process(led_bcd)
 begin
-    case led_bcd is
+    case (led_bcd) is
     when "0000" => LED_out <= "0000001"; -- "0"     
     when "0001" => LED_out <= "1001111"; -- "1" 
     when "0010" => LED_out <= "0010010"; -- "2" 
@@ -71,6 +71,7 @@ begin
     when "1101" => LED_out <= "1000010"; -- d
     when "1110" => LED_out <= "0110000"; -- E
     when "1111" => LED_out <= "0111000"; -- F
+    when others => LED_out <= "0000000";
     end case;
 end process;
 
@@ -99,6 +100,8 @@ begin
     when "11" =>
         Anode_Activate <= "1110";     
         led_bcd <= displayed_number(3 DOWNTO 0);
+    when others =>
+        null;
     end case;
 end process;
 

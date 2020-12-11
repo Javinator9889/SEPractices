@@ -36,9 +36,17 @@ entity Orchestrator is
         -- 100 MHz system clock
         clk             : in std_logic;
         -- 7 segment display
-        led_out         : out std_logic_vector(6 downto 0);
+        LED_out         : out std_logic_vector(6 downto 0);
         -- 4 anode signals
-        anode_activate  : out std_logic_vector(3 downto 0)
+        anode_activate  : out std_logic_vector(3 downto 0);
+        -- Switch signals
+        sw              : inout std_logic_vector(MSB downto LSB);
+        -- Buttons
+        btn_sum         : in std_logic;
+        btn_sub         : in std_logic;
+        btn_mul         : in std_logic;
+        btn_div         : in std_logic;
+        btn_eq          : in std_logic
     );
 end Orchestrator;
 
@@ -109,16 +117,16 @@ signal ALU_out      : std_logic_vector (MSB downto LSB);
 signal ALU_carry    : std_logic;
 
 -- Switch signals
-signal sw           : std_logic_vector (MSB downto LSB);
+-- signal sw           : std_logic_vector (MSB downto LSB);
 
 -- Button signals
-signal btn_sum      : std_logic;
-signal btn_sub      : std_logic;
-signal btn_mul      : std_logic;
-signal btn_div      : std_logic;
-signal btn_eq       : std_logic;
+-- signal btn_sum      : std_logic;
+-- signal btn_sub      : std_logic;
+-- signal btn_mul      : std_logic;
+-- signal btn_div      : std_logic;
+-- signal btn_eq       : std_logic;
 signal result       : std_logic_vector(3 downto 0);
-signal ready_to_go      : std_logic;
+signal ready_to_go  : std_logic;
 
 -- First operand signals
 signal f1_write     : std_logic;
