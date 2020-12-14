@@ -143,11 +143,11 @@ signal f2_d         : std_logic_vector(MSB downto LSB);
 signal f2_q         : std_logic_vector(MSB downto LSB);
 
 -- 7-segment display signals
-signal clock_100Mhz : STD_LOGIC;
+-- signal clock_100Mhz : STD_LOGIC;
 signal reset        : STD_LOGIC;
 signal displayed_num: STD_LOGIC_VECTOR(MSB DOWNTO LSB);
-signal aa           : STD_LOGIC_VECTOR (3 downto 0);
-signal lout         : STD_LOGIC_VECTOR (6 downto 0);
+-- signal aa           : STD_LOGIC_VECTOR (3 downto 0);
+-- signal lout         : STD_LOGIC_VECTOR (6 downto 0);
 
 -- Operand selection signal
 signal state        : std_logic_vector(1 downto 0);
@@ -156,7 +156,14 @@ signal state        : std_logic_vector(1 downto 0);
 signal ac_counter   : natural;
 
 begin
-
+    ALU_a <= (others => '0');
+    ALU_b <= (others => '0');
+    ALU_sel <= (others => '0');
+    ALU_go <= '0';
+    ALU_out <= (others => '0');
+    ALU_carry <= '0';
+    state <= "00";
+    ac_counter <= 0;
     sys_alu: ALU port map (ALU_a => ALU_a,
                            ALU_b => ALU_b,
                            ALU_sel => ALU_sel,
@@ -186,11 +193,11 @@ begin
                                         
     operand_selection: switchif port map(sw => sw);
     
-    display: SevenSegmentDisplay port map(clock_100Mhz => clock_100Mhz,
+    display: SevenSegmentDisplay port map(clock_100Mhz => clk,
                                           reset => reset,
                                           number_to_be_displayed => displayed_num,
-                                          anode_activate => aa,
-                                          led_out => lout);
+                                          anode_activate => Anode_Activate,
+                                          led_out => LED_out);
     
     process (clk)
     begin
@@ -245,7 +252,7 @@ begin
         if state(1) = '0' then
             displayed_num <= sw;
         else 
-            displayed_num <= alu_out;
+            displayed_num <= binary_to_bcd16(alu_out);
         end if;
     end process;
 

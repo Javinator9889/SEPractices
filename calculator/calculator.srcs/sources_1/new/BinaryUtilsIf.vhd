@@ -41,4 +41,6 @@ package BinaryUtils is
                  length: natural) return std_logic_vector;
     
     function bcd16_to_binary(bcd: std_logic_vector) return std_logic_vector;
+    
+    function binary_to_bcd16(bin: std_logic_vector) return std_logic_vector;
 end package;

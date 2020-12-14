@@ -65,4 +65,33 @@ package body BinaryUtils is
                 (binary_to_int(bcd(11 downto 8)) * 100) +
                 (binary_to_int(bcd(15 downto 12)) * 1000), 16);
     end bcd16_to_binary;
+    
+    function binary_to_bcd16(bin: std_logic_vector) return std_logic_vector is
+        variable bcd    :   std_logic_vector(15 downto 0);
+        variable bint   :   std_logic_vector(13 downto 0);
+    begin
+        bcd := (others => '0');
+        bint := bin(13 downto 0);
+        
+        for i in 0 to 13 loop
+            bcd(15 downto 1) := bcd(14 downto 0);
+            bcd(0) := bint(13);
+            bint(13 downto 1) := bint(12 downto 0);
+            bint(0) := '0';
+            
+            if i < 13 and bcd(3 downto 0) > "0100" then
+                bcd(3 downto 0) := std_logic_vector(unsigned(bcd(3 downto 0)) + 3);
+            end if;
+            if i < 13 and bcd(7 downto 4) > "0100" then
+                bcd(7 downto 4) := std_logic_vector(unsigned(bcd(7 downto 4)) + 3);
+            end if;
+            if i < 13 and bcd(11 downto 8) > "0100" then
+                bcd(11 downto 8) := std_logic_vector(unsigned(bcd(11 downto 8)) + 3);
+            end if;
+            if i < 13 and bcd(15 downto 12) > "0100" then
+                bcd(11 downto 8) := std_logic_vector(unsigned(bcd(15 downto 12)) + 3);
+            end if;
+        end loop;
+        return bcd;
+    end binary_to_bcd16;
 end BinaryUtils;
