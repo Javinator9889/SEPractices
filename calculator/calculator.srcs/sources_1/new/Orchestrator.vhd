@@ -48,7 +48,9 @@ entity Orchestrator is
         btn_sub         : in std_logic;
         btn_mul         : in std_logic;
         btn_div         : in std_logic;
-        btn_eq          : in std_logic
+        btn_eq          : in std_logic;
+        -- Error LED
+        Error_LED       : inout std_logic
     );
 end Orchestrator;
 
@@ -82,11 +84,11 @@ component registry is
 end component;
 
 -- Component switchif declaration
-component switchif is
-    port(
-        sw : in std_logic_vector (MSB downto LSB)
-    );
-end component;
+-- component switchif is
+--     port(
+--         sw : in std_logic_vector (MSB downto LSB)
+--     );
+-- end component;
 
 -- Component ButtonIf declaration
 component buttonif is
@@ -111,12 +113,12 @@ component SevenSegmentDisplay is
 end component;
 
 -- ALU signals
-signal ALU_a        : std_logic_vector (MSB downto LSB);
-signal ALU_b        : std_logic_vector (MSB downto LSB);
-signal ALU_sel      : std_logic_vector (3 downto 0);
-signal ALU_go       : std_logic;
-signal ALU_out      : std_logic_vector (MSB downto LSB);
-signal ALU_carry    : std_logic;
+signal ALU_a        : std_logic_vector (MSB downto LSB) := (others => '0');
+signal ALU_b        : std_logic_vector (MSB downto LSB) := (others => '0');
+signal ALU_sel      : std_logic_vector (3 downto 0) := (others => '0');
+signal ALU_go       : std_logic := '0';
+signal ALU_out      : std_logic_vector (MSB downto LSB) := (others => '0');
+signal ALU_carry    : std_logic := '0';
 
 -- Switch signals
 -- signal sw           : std_logic_vector (MSB downto LSB);
@@ -127,43 +129,35 @@ signal ALU_carry    : std_logic;
 -- signal btn_mul      : std_logic;
 -- signal btn_div      : std_logic;
 -- signal btn_eq       : std_logic;
-signal result       : std_logic_vector(3 downto 0);
-signal ready_to_go  : std_logic;
+signal btn_value    : std_logic_vector(3 downto 0) := (others => '0');
+signal ready_to_go  : std_logic := '0';
 
 -- First operand signals
-signal f1_write     : std_logic;
-signal f1_clr       : std_logic;
-signal f1_d         : std_logic_vector(MSB downto LSB);
-signal f1_q         : std_logic_vector(MSB downto LSB);
+signal f1_write     : std_logic := '0';
+signal f1_clr       : std_logic := '0';
+signal f1_d         : std_logic_vector(MSB downto LSB) := (others => '0');
+signal f1_q         : std_logic_vector(MSB downto LSB) := (others => '0');
 
 -- Second operand signals
-signal f2_write     : std_logic;
-signal f2_clr       : std_logic;
-signal f2_d         : std_logic_vector(MSB downto LSB);
-signal f2_q         : std_logic_vector(MSB downto LSB);
+signal f2_write     : std_logic := '0';
+signal f2_clr       : std_logic := '0';
+signal f2_d         : std_logic_vector(MSB downto LSB) := (others => '0');
+signal f2_q         : std_logic_vector(MSB downto LSB) := (others => '0');
 
 -- 7-segment display signals
 -- signal clock_100Mhz : STD_LOGIC;
-signal reset        : STD_LOGIC;
-signal displayed_num: STD_LOGIC_VECTOR(MSB DOWNTO LSB);
+signal reset        : STD_LOGIC := '0';
+signal displayed_num: STD_LOGIC_VECTOR(MSB DOWNTO LSB) := (others => '0');
 -- signal aa           : STD_LOGIC_VECTOR (3 downto 0);
 -- signal lout         : STD_LOGIC_VECTOR (6 downto 0);
 
 -- Operand selection signal
-signal state        : std_logic_vector(1 downto 0);
+signal state        : std_logic_vector(1 downto 0) := (others => '0');
 
 -- AC button counter
-signal ac_counter   : natural;
+signal ac_counter   : natural := 0;
 
 begin
-    ALU_a <= (others => '0');
-    ALU_b <= (others => '0');
-    ALU_sel <= (others => '0');
-    ALU_go <= '0';
-    ALU_out <= (others => '0');
-    ALU_carry <= '0';
-    state <= "00";
-    ac_counter <= 0;
     sys_alu: ALU port map (ALU_a => ALU_a,
                            ALU_b => ALU_b,
                            ALU_sel => ALU_sel,
@@ -188,10 +182,10 @@ begin
                                         btn_mul => btn_mul,
                                         btn_div => btn_div,
                                         btn_eq => btn_eq,
-                                        result => result,
+                                        result => btn_value,
                                         execute => ready_to_go);
                                         
-    operand_selection: switchif port map(sw => sw);
+    -- operand_selection: switchif port map(sw => sw);
     
     display: SevenSegmentDisplay port map(clock_100Mhz => clk,
                                           reset => reset,
@@ -238,21 +232,34 @@ begin
         end if;
     end process;
     
-    process (result)
+    process (btn_value)
     begin
         if state = "00" then
             ALU_a <= f1_q;
-            ALU_sel <= result;
+            ALU_sel <= btn_value;
             state <= "01";
+            btn_value <= (others => '0');
         end if;
     end process;
     
     process (sw, alu_out)
+        variable value  : std_logic_vector(MSB downto LSB);
     begin
+        value := (others => '0');
         if state(1) = '0' then
             displayed_num <= sw;
+            value := sw;
         else 
-            displayed_num <= binary_to_bcd16(alu_out);
+            value := binary_to_bcd16(alu_out);
+            displayed_num <= value;
+        end if;
+        if value(3 downto 0) > "1001" or
+            value(7 downto 4) > "1001" or
+            value(11 downto 8) > "1001" or
+            value(15 downto 12) > "1001" then
+            Error_LED <= '1';
+        else
+            Error_LED <= '0';
         end if;
     end process;
 
