@@ -38,7 +38,9 @@ entity Orchestrator is
         -- 7 segment display
         LED_out         : out std_logic_vector(6 downto 0);
         -- 4 anode signals
-        anode_activate  : out std_logic_vector(3 downto 0);
+        Anode_Activate  : out std_logic_vector(3 downto 0);
+        -- dp signal 7-segment display
+        dp              : out std_logic;
         -- Switch signals
         sw              : inout std_logic_vector(MSB downto LSB);
         -- Buttons

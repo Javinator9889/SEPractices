@@ -53,23 +53,23 @@ begin
         end if;
     end process;
     
-    process (btn_sum)
+    process (btn_sub)
     begin
-        if btn_sum = '1' then
+        if btn_sub = '1' then
             result <= "0001";
         end if;
     end process;
     
     process (btn_mul)
     begin
-        if btn_sum = '1' then
+        if btn_mul = '1' then
             result <= "0010";
         end if;
     end process;
     
     process (btn_div)
     begin
-        if btn_sum = '1' then
+        if btn_div = '1' then
             result <= "0011";
         end if;
     end process;
