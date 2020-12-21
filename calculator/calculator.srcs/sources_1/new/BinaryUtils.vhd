@@ -37,7 +37,7 @@ package body BinaryUtils is
     -- Convert a given integer to a binary, with the specified "msb" and "lsb"
     function int_to_binary(i: integer; length: natural) return std_logic_vector is
     begin
-        return std_logic_vector(to_signed(i, length));
+        return std_logic_vector(to_unsigned(i, length));
     end int_to_binary;
     
     -- Multiply two binary numbers

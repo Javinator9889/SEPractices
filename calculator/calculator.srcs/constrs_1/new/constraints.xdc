@@ -81,3 +81,8 @@ set_property PACKAGE_PIN T17 [get_ports btn_sub]
 	set_property IOSTANDARD LVCMOS33 [get_ports btn_sub]
 set_property PACKAGE_PIN U17 [get_ports btn_mul]						
 	set_property IOSTANDARD LVCMOS33 [get_ports btn_mul]
+	
+# LED
+# LEDs
+set_property PACKAGE_PIN U16 [get_ports {Error_LED}]					
+	set_property IOSTANDARD LVCMOS33 [get_ports {Error_LED}]
