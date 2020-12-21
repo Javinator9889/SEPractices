@@ -156,14 +156,14 @@ signal state        : std_logic_vector(1 downto 0);
 signal ac_counter   : natural;
 
 begin
-    ALU_a <= (others => '0');
-    ALU_b <= (others => '0');
-    ALU_sel <= (others => '0');
-    ALU_go <= '0';
-    ALU_out <= (others => '0');
-    ALU_carry <= '0';
-    state <= "00";
-    ac_counter <= 0;
+    --ALU_a <= (others => '0');
+    --ALU_b <= (others => '0');
+    --ALU_sel <= (others => '0');
+    --ALU_go <= '0';
+    --ALU_out <= (others => '0');
+    --ALU_carry <= '0';
+    --state <= "00";
+    --ac_counter <= 0;
     sys_alu: ALU port map (ALU_a => ALU_a,
                            ALU_b => ALU_b,
                            ALU_sel => ALU_sel,
